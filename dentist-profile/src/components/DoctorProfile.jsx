@@ -1,40 +1,48 @@
 import React, { useState } from "react";
 
-const DoctorProfile = () => {
+// DoctorProfile component receives the `data` prop containing doctor's details.
+const DoctorProfile = ({ data }) => {
+  // State to toggle between showing short and long description text
   const [showMore, setShowMore] = useState(false);
 
-  const shortText =
-    "Dr. Satheesh B is a senior dentist with experience in cosmetic and aesthetic dentistry.He specializes in cosmetic/aesthetic dentistry and has treated over 10,000 patients.";
-  const longText = `Dr. Satheesh B is a senior dentist with over 16 years of experience. 
-    He specializes in cosmetic/aesthetic dentistry and has treated over 10,000 patients. 
-    He believes in painless treatment and modern dental techniques.
-    
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`;
-
   return (
-    <div className="profile-card">
+    // Container div with flex layout to display profile image and details side by side
+    <div className="flex max-w-4xl mx-auto bg-white p-6 rounded-lg shadow">
+      {/* Doctor's Profile Picture */}
       <img
-        src="https://t4.ftcdn.net/jpg/03/10/37/43/360_F_310374365_fiIJLNqEeYVbXO0PpyUauQvZRreCMEdr.jpg"
-        alt="Doctor"
+        src={data.imageUrl} // Image URL from the passed data
+        alt="Doctor" // Alt text for image
+        className="w-24 h-24 rounded-full object-cover mr-6" // Styling: 24x24 size, rounded, object cover
       />
-      <div className="profile-card-info">
-        <h2 className="doctor-name">Dr. Satheesh B</h2>
-        <p className="doctor-degree">BDS, Doctor of Dental Surgery (DDS)</p>
-        <p className="doctor-experience">🗓️ 16 years experience overall</p>
-        <p className="doctor-specialties">
-          Cosmetic/Aesthetic Dentist, Dentist, Dental Surgeon
-        </p>
-        <p className="doctor-rating">👍 73% (1285 votes)</p>
 
-        <p className="doctor-description">
-          {showMore ? longText : shortText}
+      {/* Doctor's Details */}
+      <div className="flex-1">
+        {/* Doctor's Name */}
+        <h2 className="text-2xl font-semibold text-black">{data.name}</h2>
+
+        {/* Doctor's Qualifications (Degree) */}
+        <p className="text-sm text-gray-600">{data.degree}</p>
+
+        {/* Doctor's Experience */}
+        <p className="text-sm text-gray-600">{data.experience}</p>
+
+        {/* Doctor's Specialties */}
+        <p className="text-sm text-gray-600">{data.specialties}</p>
+
+        {/* Doctor's Rating */}
+        <p className="text-sm text-green-500 font-semibold">{data.rating}</p>
+
+        {/* Short or long description of the doctor */}
+        <p className="mt-4 text-sm text-gray-700 leading-relaxed">
+          {showMore ? data.longText : data.shortText}{" "}
+          {/* Toggle between shortText and longText based on state */}
+          {/* Button to toggle the text */}
           <button
-            onClick={() => setShowMore(!showMore)}
-            className="read-more-btn"
+            onClick={() => setShowMore(!showMore)} // Toggle `showMore` state on click
+            className="text-blue-500 font-semibold ml-2" // Styling: Blue color, font weight, left margin
           >
-            {showMore ? " Show less" : " Read more"}
+            {showMore ? "Show less" : "Read more"}{" "}
+            {/* Display "Show less" if longText is visible, else "Read more" */}
           </button>
         </p>
       </div>
